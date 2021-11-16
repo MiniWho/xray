@@ -1,0 +1,8 @@
+{
+  "generator-jhipster:7.1.0": {
+    "promptValues": {
+      "packageName": "isep.financialai",
+      "nativeLanguage": "pt-pt"
+    }
+  }
+}

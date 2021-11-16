@@ -1,0 +1,73 @@
+----------------------------170819465560088544959200
+Content-Disposition: form-data; name="File"; filename="Desafio1_exemplo_academico1.csv"
+Content-Type: text/csv
+
+﻿Rácios;;;;;
+ ; ; ; ;Média do setor 2020;
+;2020;2019;Var. 2020/ 2019;dimensão: Pequenas empresas;Total do setor
+Estrutura / Endividamento;;;;;
+Autonomia financeira (%) ;28,52;33,24;-4,72 p.p.;48,75;45,11
+Solvabilidade (%) ;39,91;49,78;-9,87 p.p.;95,13;82,19
+Endividamento (%) ;71,48;66,76;4,72 p.p.;51,25;54,89
+Vendas e serviços prestados / Capital próprio (%) ;1062,86;850,33;212,53 p.p.;248,18;237,93
+Ativos não correntes / Capital próprio (%) ;103,80;97,10;6,70 p.p.;55,40;59,30
+Débitos correntes / Capital próprio (%) ;235,65;164,59;71,06 p.p.;68,23;74,41
+Débitos correntes / Inventários e ativos biológicos (%) ;204,89;189,18;15,71 p.p.;136,70;144,82
+Ativo não corrente / (Capital próprio + Passivo não corrente) (%) ;90,31;71,24;19,07 p.p.;40,62;41,66
+Capacidade de endividamento a médio e longo prazo (%) ;87,01;73,37;13,64 p.p.;73,31;70,25
+EBITDA ajustado / Passivo líquido (%) ;2,80;-27,65;30,45 p.p.;31,31;25,77
+Dívidas de médio longo prazo / Ativos fixos (%) ;14,44;37,49;-23,05 p.p.;83,81;93,01
+Passivo / Capital próprio (%) ;250,59;200,88;49,71 p.p.;105,12;121,67
+Estrutura de endividamento (%) ;94,04;81,93;12,11 p.p.;65,37;65,19
+Funcionamento;;;;;
+Rotação de inventários ;9,24;9,77;-5.42%;4,97;4,63
+Prazo médio de recebimentos (dias) ;15,40;24,53;-37.22%;79,66;93,68
+Prazo médio de pagamentos (dias) ;44,03;32,67;34.77%;65,85;80,40
+Rotação do ativo (%) ;303,16;282,61;20,55 p.p.;121,00;107,34
+Liquidez;;;;;
+Liquidez reduzida ;0,56;0,71;-21.13%;1,45;1,40
+Liquidez geral ;1,05;1,24;-15.32%;2,18;2,05
+Liquidez imediata ;0,31;0,41;-24.39%;0,45;0,41
+Fundo de maneio ;25500,71;101698,93;-74.93%;1317471,19;381493,12
+Rentabilidade económica;;;;;
+Rentabilidade do ativo (%) ;-3,81;-16,52;12,71 p.p.;6,55;5,65
+Resultados antes de impostos / Ativo (%) ;-3,79;-16,30;12,51 p.p.;8,23;7,12
+Vendas e serviços prestados por empregado ;173780,68;137905,55;26.01%;246562,46;193479,29
+Resultado líquido do período por empregado ;-2184,49;-8063,51;72.91%;13347,40;10182,20
+Ativo / Vendas e serviços prestados (%) ;32,99;35,38;-2,39 p.p.;82,65;93,16
+Valor acrescentado bruto (VAB) ;357702,26;306552,73;16.69%;704071,82;200776,43
+Vab por vendas (%) ;14,70;13,89;0,81 p.p.;17,44;18,37
+Rentabilidade económica (%) ;-3,23;-15,69;12,46 p.p.;8,64;7,49
+Rentabilidade do investimento (%) ;-11,55;-36,00;24,45 p.p.;12,38;11,08
+Rentabilidade líquida do ativo (%) ;-3,92;-16,94;13,02 p.p.;7,27;6,17
+Gastos com o pessoal / Vendas e serviços prestados (%) ;12,83;14,05;-1,22 p.p.;9,05;10,12
+Gasto médio por empregado ;22298,87;19378,76;15.07%;22312,93;19583,28
+Gastos com o pessoal / EBIT (%) ;-1204,02;-253,13;-950,89 p.p.;126,75;145,00
+Custo líquido de financiamento ;4468,99;4810,33;-7.1%;13537,84;3807,96
+EBITDA ajustado ;11343,84;-95628,95;111.86%;366949,86;102990,96
+EBIT ;-25928,43;-122490,01;78.83%;288231,41;76290,81
+Margem EBIT (%) ;-1,07;-5,55;4,48 p.p.;7,14;6,98
+Rentabilidade financeira;;;;;
+Rentabilidade das vendas e serviços prestados (%) ;-1,26;-5,85;4,59 p.p.;5,41;5,26
+Rentabilidade do capital próprio (%) ;-13,36;-49,72;36,36 p.p.;13,44;12,52
+Rentabilidade dos capitais permanentes (%) ;-11,62;-36,48;24,86 p.p.;9,85;8,80
+Passivo / Vendas e serviços prestados (%) ;23,58;23,62;-0,04 p.p.;42,35;51,14
+Passivo / Custo das vendas (%) ;29,87;29,77;0,10 p.p.;58,38;71,94
+Vendas / Ativo corrente (%) ;430,67;417,28;13,39 p.p.;165,77;146,54
+Juros e gastos similares suportados / Vendas e serv.prestados (%) ;0,18;0,22;-0,04 p.p.;0,41;0,39
+Fundo de maneio / Vendas e serviços prestados (%) ;1,05;4,61;-3,56 p.p.;32,64;34,91
+Juros e gastos similares suportados / EBITDA ajustado (%) ;39,40;-5,03;44,43 p.p.;4,47;4,10
+Margem EBITDA ajustado (%) ;0,47;-4,33;4,80 p.p.;9,09;9,42
+Cobertura do ativo não corrente (%) ;110,73;140,36;-29,63 p.p.;246,19;240,04
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+
+----------------------------170819465560088544959200--
