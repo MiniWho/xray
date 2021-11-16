@@ -16,8 +16,7 @@ public class ApiResourceIT {
     @Test
     public void xrayEngine(){
         List<Evidence> evidences = new ArrayList<>();
-        evidences.add(new Evidence(EvidenceEnum.FINANCIAL_AUTONOMY, Float.valueOf("60")));
-        //evidences.add(new Evidence(RecommendationEnum.HAS_PROPERTIES, Boolean.TRUE));
+        evidences.add(new Evidence(EvidenceEnum.FINANCIAL_AUTONOMY, Float.valueOf("10")));
         evidences.add(new Evidence(EvidenceEnum.SOLUBILITY, Float.valueOf("60")));
         ApiResource.runEngine(evidences);
     }

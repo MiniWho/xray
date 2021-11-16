@@ -24,6 +24,7 @@ end
 
 query "ProfitabilityConclusions"
     $profitabilityConclusion: ProfitabilityConclusion();
+    $recommendation: Recommendation();
 end
 
 query "Recommendations"

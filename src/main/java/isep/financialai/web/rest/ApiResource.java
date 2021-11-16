@@ -88,6 +88,7 @@ public class ApiResource {
 
     public static EngineResponse runEngine(List<Evidence> evidences) {
         EngineResponse response = new EngineResponse();
+        response.setRecommendations(new ArrayList<>());
         try {
             justifications = new TreeMap<>();
             // load up the knowledge base
@@ -98,7 +99,7 @@ public class ApiResource {
             kSession.addEventListener(agendaEventListener);
 
             // Query listener
-            ViewChangedEventListener listener = new ViewChangedEventListener() {
+            ViewChangedEventListener listenerFinancialHealthConclusions = new ViewChangedEventListener() {
                 @Override
                 public void rowDeleted(Row row) {
                 }
@@ -114,6 +115,20 @@ public class ApiResource {
                             kSession.halt();
                         }
                     }
+                }
+
+                @Override
+                public void rowUpdated(Row row) {
+                }
+            };
+
+            ViewChangedEventListener listenerProfitabilityConclusions = new ViewChangedEventListener() {
+                @Override
+                public void rowDeleted(Row row) {
+                }
+
+                @Override
+                public void rowInserted(Row row) {
                     if (row.get("$profitabilityConclusion") != null) {
                         response.setProfitabilityConclusion((ProfitabilityConclusion) row.get("$profitabilityConclusion"));
                         System.out.println(">>>" + (ProfitabilityConclusion) row.get("$profitabilityConclusion"));
@@ -123,6 +138,20 @@ public class ApiResource {
                             kSession.halt();
                         }
                     }
+                }
+
+                @Override
+                public void rowUpdated(Row row) {
+                }
+            };
+
+            ViewChangedEventListener listenerRecommendations = new ViewChangedEventListener() {
+                @Override
+                public void rowDeleted(Row row) {
+                }
+
+                @Override
+                public void rowInserted(Row row) {
                     if (row.get("$recommendation") != null) {
                         response.getRecommendations().add((Recommendation) row.get("$recommendation"));
                         System.out.println(">>>" + (Recommendation) row.get("$recommendation"));
@@ -136,9 +165,9 @@ public class ApiResource {
 
             evidences.forEach(kSession::insert);
 
-            LiveQuery queryFinancialHealthConclusions = kSession.openLiveQuery("FinancialHealthConclusions", null, listener);
-            LiveQuery queryProfitabilityConclusions = kSession.openLiveQuery("ProfitabilityConclusions", null, listener);
-            LiveQuery queryRecommendations = kSession.openLiveQuery("Recommendations", null, listener);
+            LiveQuery queryFinancialHealthConclusions = kSession.openLiveQuery("FinancialHealthConclusions", null, listenerFinancialHealthConclusions);
+            LiveQuery queryProfitabilityConclusions = kSession.openLiveQuery("ProfitabilityConclusions", null, listenerProfitabilityConclusions);
+            LiveQuery queryRecommendations = kSession.openLiveQuery("Recommendations", null, listenerRecommendations);
 
             kSession.fireAllRules();
             queryFinancialHealthConclusions.close();
