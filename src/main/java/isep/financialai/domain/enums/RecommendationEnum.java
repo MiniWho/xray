@@ -2,7 +2,7 @@ package isep.financialai.domain.enums;
 
 import java.util.Arrays;
 
-public enum AuxEnum {
+public enum RecommendationEnum {
 
     INCREASE_OWN_CAPITAL("aumentar_capital_proprio"),
     INCREASE_SOCIAL_CAPITAL("aumentar_capital_social"),
@@ -35,7 +35,7 @@ public enum AuxEnum {
 
     private final String value;
 
-    AuxEnum(String value) {
+    RecommendationEnum(String value) {
         this.value = value;
     }
 
@@ -47,8 +47,8 @@ public enum AuxEnum {
      * @return the Enum representation for the given string.
      * @throws IllegalArgumentException if unknown string.
      */
-    public static AuxEnum fromString(String s) throws IllegalArgumentException {
-        return Arrays.stream(AuxEnum.values())
+    public static RecommendationEnum fromString(String s) throws IllegalArgumentException {
+        return Arrays.stream(RecommendationEnum.values())
                 .filter(v -> v.value.equals(s))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("unknown value: " + s));

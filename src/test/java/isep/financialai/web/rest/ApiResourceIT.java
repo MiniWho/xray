@@ -14,10 +14,10 @@ public class ApiResourceIT {
     static final Logger LOG = LoggerFactory.getLogger(ApiResourceIT.class);
 
     @Test
-    public void xrayngine(){
+    public void xrayEngine(){
         List<Evidence> evidences = new ArrayList<>();
         evidences.add(new Evidence(EvidenceEnum.FINANCIAL_AUTONOMY, Float.valueOf("60")));
-        //evidences.add(new Evidence(AuxEnum.HAS_PROPERTIES, Boolean.TRUE));
+        //evidences.add(new Evidence(RecommendationEnum.HAS_PROPERTIES, Boolean.TRUE));
         evidences.add(new Evidence(EvidenceEnum.SOLUBILITY, Float.valueOf("60")));
         ApiResource.runEngine(evidences);
     }

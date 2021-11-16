@@ -1,14 +1,14 @@
 package isep.financialai.domain;
 
-import isep.financialai.domain.enums.AuxEnum;
+import isep.financialai.domain.enums.RecommendationEnum;
 import isep.financialai.domain.enums.EvidenceEnum;
 
 public class Hypothesis extends Fact{
 
     private EvidenceEnum description;
-    private AuxEnum value;
+    private RecommendationEnum value;
 
-    public Hypothesis(EvidenceEnum description, AuxEnum value) {
+    public Hypothesis(EvidenceEnum description, RecommendationEnum value) {
         this.description = description;
         this.value = value;
     }
@@ -21,11 +21,11 @@ public class Hypothesis extends Fact{
         this.description = description;
     }
 
-    public AuxEnum getValue() {
+    public RecommendationEnum getValue() {
         return value;
     }
 
-    public void setValue(AuxEnum value) {
+    public void setValue(RecommendationEnum value) {
         this.value = value;
     }
 

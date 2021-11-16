@@ -1,9 +1,8 @@
 package isep.financialai.web.rest;
 
-import isep.financialai.domain.Conclusion;
-import isep.financialai.domain.Evidence;
-import isep.financialai.domain.Justification;
-import isep.financialai.domain.enums.AuxEnum;
+import isep.financialai.domain.*;
+import isep.financialai.domain.enums.ConclusionEnum;
+import isep.financialai.domain.enums.RecommendationEnum;
 import isep.financialai.domain.enums.EvidenceEnum;
 import isep.financialai.helpers.How;
 import isep.financialai.listeners.TrackingAgendaEventListener;
@@ -33,11 +32,13 @@ public class ApiResource {
     public static TrackingAgendaEventListener agendaEventListener;
 
     @GetMapping("/simpleget")
-    public ResponseEntity<List<Conclusion>> getSimpleGet() {
-        List<Conclusion> conclusions = new ArrayList<>();
-        conclusions.add(new Conclusion(AuxEnum.CELEBRATE_PUBLIC_DEED));
-        conclusions.add(new Conclusion(AuxEnum.ACCEPTABLE_PROFITABILITY));
-        return ResponseEntity.ok().body(conclusions);
+    public ResponseEntity<EngineResponse> getSimpleGet() {
+        FinancialHealthConclusion financialHealthConclusion = new FinancialHealthConclusion(ConclusionEnum.NON_SATISFYING);
+        ProfitabilityConclusion profitabilityConclusion = new ProfitabilityConclusion(ConclusionEnum.ACCEPTABLE);
+        List<Recommendation> recommendations = new ArrayList<>();
+        recommendations.add(new Recommendation(RecommendationEnum.CELEBRATE_PUBLIC_DEED));
+        recommendations.add(new Recommendation(RecommendationEnum.ACCEPTABLE_PROFITABILITY));
+        return ResponseEntity.ok().body(new EngineResponse(financialHealthConclusion, profitabilityConclusion, recommendations));
     }
 
     @GetMapping("/simplepost")
@@ -46,7 +47,7 @@ public class ApiResource {
     }
 
     @GetMapping("/getFinancialHealth")
-    public ResponseEntity<List<Conclusion>> getFinancialHealth(InputStream inputStream) {
+    public ResponseEntity<EngineResponse> getFinancialHealth(InputStream inputStream) {
         File file = new File("src/main/resources/Temp/output.csv");
         try (FileOutputStream outputStream = new FileOutputStream(file)) {
             int read;
@@ -82,11 +83,11 @@ public class ApiResource {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ResponseEntity.ok(new ArrayList<>());
+        return ResponseEntity.ok(null);
     }
 
-    public static List<Conclusion> runEngine(List<Evidence> evidences) {
-        List<Conclusion> conclusions = new ArrayList<>();
+    public static EngineResponse runEngine(List<Evidence> evidences) {
+        EngineResponse response = new EngineResponse();
         try {
             justifications = new TreeMap<>();
             // load up the knowledge base
@@ -104,35 +105,49 @@ public class ApiResource {
 
                 @Override
                 public void rowInserted(Row row) {
-                    Conclusion conclusion = (Conclusion) row.get("$conclusion");
-                    System.out.println(">>>" + conclusion.toString());
-
-                    //System.out.println(Haemorrhage.justifications);
-                    How how = new How(justifications);
-                    System.out.println(how.getHowExplanation(conclusion.getId()));
-                    conclusions.add(conclusion);
-                    // stop inference engine after as soon as got a conclusion
-//                    kSession.halt();
-
+                    if (row.get("$financialHealthConclusion") != null) {
+                        response.setFinancialHealthConclusion((FinancialHealthConclusion) row.get("$financialHealthConclusion"));
+                        System.out.println(">>>" + (FinancialHealthConclusion) row.get("$financialHealthConclusion"));
+                        How how = new How(justifications);
+                        System.out.println(how.getHowExplanation(response.getFinancialHealthConclusion().getId()));
+                        if (response.getProfitabilityConclusion() != null) {
+                            kSession.halt();
+                        }
+                    }
+                    if (row.get("$profitabilityConclusion") != null) {
+                        response.setProfitabilityConclusion((ProfitabilityConclusion) row.get("$profitabilityConclusion"));
+                        System.out.println(">>>" + (ProfitabilityConclusion) row.get("$profitabilityConclusion"));
+                        How how = new How(justifications);
+                        System.out.println(how.getHowExplanation(response.getProfitabilityConclusion().getId()));
+                        if (response.getFinancialHealthConclusion() != null) {
+                            kSession.halt();
+                        }
+                    }
+                    if (row.get("$recommendation") != null) {
+                        response.getRecommendations().add((Recommendation) row.get("$recommendation"));
+                        System.out.println(">>>" + (Recommendation) row.get("$recommendation"));
+                    }
                 }
 
                 @Override
                 public void rowUpdated(Row row) {
                 }
-
             };
 
             evidences.forEach(kSession::insert);
 
-            LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
+            LiveQuery queryFinancialHealthConclusions = kSession.openLiveQuery("FinancialHealthConclusions", null, listener);
+            LiveQuery queryProfitabilityConclusions = kSession.openLiveQuery("ProfitabilityConclusions", null, listener);
+            LiveQuery queryRecommendations = kSession.openLiveQuery("Recommendations", null, listener);
 
             kSession.fireAllRules();
-            // kSession.fireUntilHalt();
-            query.close();
-            return conclusions;
+            queryFinancialHealthConclusions.close();
+            queryProfitabilityConclusions.close();
+            queryRecommendations.close();
+            return response;
         } catch (Throwable t) {
             t.printStackTrace();
         }
-        return conclusions;
+        return response;
     }
 }

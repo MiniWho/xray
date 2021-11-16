@@ -16,9 +16,18 @@
 package isep.financialai;
 import isep.financialai.domain.*
 import isep.financialai.domain.enums.*
+import isep.financialai.domain.enums.RecommendationEnum
 
-query "Conclusions"
-    $conclusion: Conclusion();
+query "FinancialHealthConclusions"
+    $financialHealthConclusion: FinancialHealthConclusion();
+end
+
+query "ProfitabilityConclusions"
+    $profitabilityConclusion: ProfitabilityConclusion();
+end
+
+query "Recommendations"
+    $recommendation: Recommendation();
 end
 
 rule "rule 1"
@@ -26,80 +35,79 @@ rule "rule 1"
         $e : Evidence(getDescription() == EvidenceEnum.FINANCIAL_AUTONOMY, Float.compare(getFloatValue(), 30) < 0 )
     then
         System.out.println("rule 1 triggered -> Cause:" +  EvidenceEnum.FINANCIAL_AUTONOMY + " = " + $e.getFloatValue() + " < 30");
-        insert(new Hypothesis($e.getDescription(), AuxEnum.HIGH_OUTSIDE_INVESTMENT));
+        insert(new Hypothesis($e.getDescription(), RecommendationEnum.HIGH_OUTSIDE_INVESTMENT));
 end
 
 rule "rule 2"
     when
-        $h : Hypothesis(getDescription() == EvidenceEnum.FINANCIAL_AUTONOMY, getValue() == AuxEnum.HIGH_OUTSIDE_INVESTMENT)
+        $h : Hypothesis(getDescription() == EvidenceEnum.FINANCIAL_AUTONOMY, getValue() == RecommendationEnum.HIGH_OUTSIDE_INVESTMENT)
     then
-        System.out.println("rule 2 triggered -> Cause: " + $h.getValue() + " , recommended " + AuxEnum.INCREASE_OWN_CAPITAL);
-        insert(new Conclusion(AuxEnum.INCREASE_OWN_CAPITAL));
+        System.out.println("rule 2 triggered -> Cause: " + $h.getValue() + " , recommended " + RecommendationEnum.INCREASE_OWN_CAPITAL);
+        insert(new Recommendation(RecommendationEnum.INCREASE_OWN_CAPITAL));
 end
 
 rule "rule 3"
     when
-        $c : Conclusion(getDescription() == AuxEnum.INCREASE_OWN_CAPITAL);
+        $c : Recommendation(getDescription() == RecommendationEnum.INCREASE_OWN_CAPITAL);
     then
         System.out.println("rule 3 triggered -> Cause: " + $c.getDescription());
-        insert(new Conclusion(AuxEnum.INCREASE_SOCIAL_CAPITAL));
+        insert(new Recommendation(RecommendationEnum.INCREASE_SOCIAL_CAPITAL));
 end
 
 rule "rule 4"
     when
-        $c : Conclusion(getDescription() == AuxEnum.INCREASE_OWN_CAPITAL)
+        $c : Recommendation(getDescription() == RecommendationEnum.INCREASE_OWN_CAPITAL)
     then
         System.out.println("rule 4 triggered -> Cause: " + $c.getDescription());
-        insert(new Conclusion(AuxEnum.HIGH_OUTSIDE_INVESTMENT));
+        insert(new Recommendation(RecommendationEnum.HIGH_OUTSIDE_INVESTMENT));
 end
 
 rule "rule 5"
     when
-        $c : Conclusion(getDescription() == AuxEnum.INCREASE_OWN_CAPITAL);
+        $c : Recommendation(getDescription() == RecommendationEnum.INCREASE_OWN_CAPITAL);
     then
         System.out.println("rule 5 triggered -> Cause: " + $c.getDescription());
-        insert(new Conclusion(AuxEnum.REVALUE_TANGIBLE_ASSETS));
+        insert(new Recommendation(RecommendationEnum.REVALUE_TANGIBLE_ASSETS));
 end
 
 rule "rule 6"
     when
-        $c : Conclusion(getDescription() == AuxEnum.INCREASE_SOCIAL_CAPITAL);
+        $c : Recommendation(getDescription() == RecommendationEnum.INCREASE_SOCIAL_CAPITAL);
     then
         System.out.println("rule 6 triggered -> Cause: " + $c.getDescription());
-        insert(new Conclusion(AuxEnum.MAKE_MONEY_DEPOSIT));
+        insert(new Recommendation(RecommendationEnum.MAKE_MONEY_DEPOSIT));
 end
 
 rule "rule 7"
     when
-        $c : Conclusion(getDescription() == AuxEnum.INCREASE_SOCIAL_CAPITAL);
+        $c : Recommendation(getDescription() == RecommendationEnum.INCREASE_SOCIAL_CAPITAL);
     then
         System.out.println("rule 7 triggered -> Cause: " + $c.getDescription());
-        insert(new Conclusion(AuxEnum.CELEBRATE_PUBLIC_DEED));
+        insert(new Recommendation(RecommendationEnum.CELEBRATE_PUBLIC_DEED));
 end
 
 rule "rule 8"
     when
-        $c : Conclusion(getDescription() == AuxEnum.INCREASE_SOCIAL_CAPITAL);
+        $c : Recommendation(getDescription() == RecommendationEnum.INCREASE_SOCIAL_CAPITAL);
     then
         System.out.println("rule 8 triggered -> Cause: " + $c.getDescription());
-        insert(new Conclusion(AuxEnum.REGISTER_CONSERVATORY_COMMERCIAL_REGISTRATION));
+        insert(new Recommendation(RecommendationEnum.REGISTER_CONSERVATORY_COMMERCIAL_REGISTRATION));
 end
 
 rule "rule 9"
     when
-        $c : Conclusion(getDescription() == AuxEnum.HIGH_OUTSIDE_INVESTMENT);
+        $c : Recommendation(getDescription() == RecommendationEnum.HIGH_OUTSIDE_INVESTMENT);
     then
         System.out.println("rule 9 triggered -> Cause: " + $c.getDescription());
-        insert(new Conclusion(AuxEnum.MAKE_CASH_DEPOSIT_MEMBERSHIP_REFUND));
+        insert(new Recommendation(RecommendationEnum.MAKE_CASH_DEPOSIT_MEMBERSHIP_REFUND));
 end
 
 rule "rule 10"
     when
-        $c : Conclusion(getDescription() == AuxEnum.REVALUE_TANGIBLE_ASSETS)
-        $e : Evidence(getDescription() == EvidenceEnum.HAS_PROPERTIES, getBooleanValue() == true)
+        $c : Recommendation(getDescription() == RecommendationEnum.REVALUE_TANGIBLE_ASSETS)
     then
-        System.out.println("rule 10 triggered -> Cause: " + $c.getDescription() + " and " + $e.getDescription());
-        insert(new Conclusion(AuxEnum.EVALUATE_COMPANY_PROPERTIES));
+        System.out.println("rule 10 triggered -> Cause: " + $c.getDescription());
+        insert(new Recommendation(RecommendationEnum.EVALUATE_COMPANY_PROPERTIES));
 end
 
 rule "rule 11"
@@ -108,7 +116,7 @@ rule "rule 11"
         Evidence(getDescription() == EvidenceEnum.FINANCIAL_AUTONOMY, Float.compare(getFloatValue(), 50) < 0 )
     then
         System.out.println("rule 11 triggered -> Cause: Autonomia Financeira = " + $e.getFloatValue() + " between 30 and 50");
-        insert(new Conclusion(AuxEnum.GOOD_FINANCIAL_AUTONOMY));
+        insert(new Recommendation(RecommendationEnum.GOOD_FINANCIAL_AUTONOMY));
 end
 
 rule "rule 12"
@@ -116,7 +124,7 @@ rule "rule 12"
         $e : Evidence(getDescription() == EvidenceEnum.FINANCIAL_AUTONOMY, Float.compare(getFloatValue(), 50) >= 0 )
     then
         System.out.println("rule 12 triggered -> Cause: Autonomia Financeira = " + $e.getFloatValue() + " >= 50");
-        insert(new Conclusion(AuxEnum.ANALYZE_OWN_CAPITAL_REPLACEMENT));
+        insert(new Recommendation(RecommendationEnum.ANALYZE_OWN_CAPITAL_REPLACEMENT));
 end
 
 rule "rule 13"
@@ -124,7 +132,7 @@ rule "rule 13"
         $e : Evidence(getDescription() == EvidenceEnum.SOLUBILITY, Float.compare(getFloatValue(), 50) <= 0 );
     then
         System.out.println("rule 13 triggered -> Cause: Solvabilidade = " + $e.getFloatValue() + " <= 50");
-        insert(new Conclusion(AuxEnum.RAISE_OWN_CAPITAL_DEBT_REFUND));
+        insert(new Recommendation(RecommendationEnum.RAISE_OWN_CAPITAL_DEBT_REFUND));
 end
 
 rule "rule 14"
@@ -132,7 +140,7 @@ rule "rule 14"
         $e : Evidence(getDescription() == EvidenceEnum.SOLUBILITY, Float.compare(getFloatValue(), 50) > 0 );
     then
         System.out.println("rule 14 triggered -> Cause: " + EvidenceEnum.SOLUBILITY + " = " + $e.getFloatValue() + " > 50");
-        insert(new Conclusion(AuxEnum.HAS_FINANCIAL_CAPABILITY));
+        insert(new Recommendation(RecommendationEnum.HAS_FINANCIAL_CAPABILITY));
 end
 
 rule "rule 15"
@@ -140,7 +148,7 @@ rule "rule 15"
         $e : Evidence(getDescription() == EvidenceEnum.INDEBTEDNESS, Float.compare(getFloatValue(), 50) > 0 );
     then
         System.out.println("rule 15 triggered -> Cause: " + EvidenceEnum.INDEBTEDNESS + " = " + $e.getFloatValue() + " > 50");
-        insert(new Conclusion(AuxEnum.HIGH_OUTSIDE_INDEBTEDNESS));
+        insert(new Recommendation(RecommendationEnum.HIGH_OUTSIDE_INDEBTEDNESS));
 end
 
 rule "rule 16"
@@ -148,7 +156,7 @@ rule "rule 16"
         $e : Evidence(getDescription() == EvidenceEnum.SALES_CONTRIBUTION_MARGIN, Float.compare(getFloatValue(),10)>=0);
     then
         System.out.println("rule 16 trigger -> cause: " + EvidenceEnum.SALES_CONTRIBUTION_MARGIN + "=" + $e.getFloatValue() + " >= 10");
-        insert(new Conclusion(AuxEnum.GOOD_PROFITABILITY));
+        insert(new Recommendation(RecommendationEnum.GOOD_PROFITABILITY));
 end
 
 rule "rule 17"
@@ -157,7 +165,7 @@ rule "rule 17"
         Evidence(getDescription() == EvidenceEnum.SALES_CONTRIBUTION_MARGIN, Float.compare(getFloatValue(),5)>=0);
     then
         System.out.println("rule 17 trigger -> cause: " + EvidenceEnum.SALES_CONTRIBUTION_MARGIN + "=" + $e.getFloatValue() + " < 10 and >= 5");
-        insert(new Conclusion(AuxEnum.ACCEPTABLE_PROFITABILITY));
+        insert(new Recommendation(RecommendationEnum.ACCEPTABLE_PROFITABILITY));
 end
 
 rule "rule 18"
@@ -165,7 +173,7 @@ rule "rule 18"
         $e : Evidence(getDescription() == EvidenceEnum.SALES_CONTRIBUTION_MARGIN, Float.compare(getFloatValue(),5)<0);
     then
         System.out.println("rule 18 trigger -> cause: " + EvidenceEnum.SALES_CONTRIBUTION_MARGIN + "=" + $e.getFloatValue() + " < 5");
-        insert(new Conclusion(AuxEnum.EXPENDITURE_ANALYSIS));
+        insert(new Recommendation(RecommendationEnum.EXPENDITURE_ANALYSIS));
 end
 
 rule "rule 19"
@@ -173,7 +181,7 @@ rule "rule 19"
         $e : Evidence(getDescription() == EvidenceEnum.MARGIN_EBITDA, Float.compare(getFloatValue(),10)>=0)
     then
         System.out.println("rule 19 trigger -> cause: " + EvidenceEnum.MARGIN_EBITDA + "=" + $e.getFloatValue() + " >= 10");
-        insert(new Conclusion(AuxEnum.MARGIN_ACCEPTABLE));
+        insert(new Recommendation(RecommendationEnum.MARGIN_ACCEPTABLE));
 end
 
 rule "rule 20"
@@ -181,7 +189,7 @@ rule "rule 20"
         $e : Evidence(getDescription() == EvidenceEnum.MARGIN_EBITDA, Float.compare(getFloatValue(),10)<0)
     then
         System.out.println("rule 20 trigger -> cause: " + EvidenceEnum.MARGIN_EBITDA + "=" + $e.getFloatValue() + " < 10");
-        insert(new Conclusion(AuxEnum.EXPENDITURE_ANALYSIS));
+        insert(new Recommendation(RecommendationEnum.EXPENDITURE_ANALYSIS));
 end
 
 

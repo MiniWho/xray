@@ -9,7 +9,6 @@ public enum EvidenceEnum {
     GENERAL_LIQUIDITY("Liquidez geral"),
     SALES_CONTRIBUTION_MARGIN("Rentabilidade das vendas e serviços prestados (%)"),
     MARGIN_EBITDA("Margem EBIT (%)"),
-    HAS_PROPERTIES("tem_imoveis"),
     OTHERS("");
 
     private final String value;
